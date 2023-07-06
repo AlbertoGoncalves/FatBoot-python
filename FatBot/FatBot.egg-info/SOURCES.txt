@@ -1,0 +1,14 @@
+MANIFEST.in
+README.md
+VERSION
+requirements.txt
+setup.py
+FatBot/__init__.py
+FatBot/__main__.py
+FatBot/bot.py
+FatBot.egg-info/PKG-INFO
+FatBot.egg-info/SOURCES.txt
+FatBot.egg-info/dependency_links.txt
+FatBot.egg-info/requires.txt
+FatBot.egg-info/top_level.txt
+FatBot/resources/start.png
