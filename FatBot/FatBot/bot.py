@@ -21,9 +21,46 @@ Please refer to the documentation for more information at https://documentation.
 """
 
 from botcity.core import DesktopBot
+
 # Uncomment the line below for integrations with BotMaestro
 # Using the Maestro SDK
 # from botcity.maestro import *
+
+ListSc = [
+ {
+  "Filial": "0101",
+  "CodProd": "0003565",
+  "DescProd": "SERVICO INFORMACAO P\/INTERNET",
+  "Quant": "1",
+  "DescObv": "Descrição Protheus",
+  "Dt": "15/08/2023",
+  "Ccontabil": "8104010005",
+  "Ccusto": "2150101001",
+  "DescObvInter": "Descrição interna "
+ },
+ {
+  "Filial": "0101",
+  "CodProd": "0003786",
+  "DescProd": "SERVICO LICENCIAMENTO OU CESSAO USO DE SOFTWARES",
+  "Quant": "1",
+  "DescObv": "Descrição Protheus",
+  "Dt": "15/08/2023",
+  "Ccontabil": "8104010005",
+  "Ccusto": "2150101001",
+  "DescObvInter": "Descrição interna "
+ },
+ {
+  "Filial": "0101",
+  "CodProd": "0011902",
+  "DescProd": "PROCESSAMENO, ARMAZENAMENTO OU HOSPEDAGEM DE DADOS",
+  "Quant": "1",
+  "DescObv": "Descrição Protheus",
+  "Dt": "15/08/2023",
+  "Ccontabil": "8104010005",
+  "Ccusto": "2150101001",
+  "DescObvInter": "Descrição interna "
+ }
+]
 
 
 class Bot(DesktopBot):
@@ -37,133 +74,85 @@ class Bot(DesktopBot):
         # activity_id = task.activity_id
 
         # Opens the BotCity website.
+
         self.browse("https://sweetfruits.e-tetris.com/")
-        
-        if not self.find( "Abrir page SC", matching=0.97, waiting_time=50000):
+
+        if not self.find("Abrir page SC", matching=0.97, waiting_time=70000):
             self.not_found("Abrir page SC")
-        
-        if not self.find( "btIncluir", matching=0.97, waiting_time=10000):
+
+        if not self.find("btIncluir", matching=0.97, waiting_time=10000):
             self.not_found("btIncluir")
         self.click()
 
-        if not self.find( "aguardPageAdd", matching=0.97, waiting_time=10000):
-            self.not_found("aguardPageAdd")
+        for i in range(0, len(ListSc)):
+            
+            if i != 0:
+                if not self.find("addNovoItem", matching=0.97, waiting_time=10000):
+                    self.not_found("addNovoItem")
+                self.click()
 
-        self.tab()
-        
-        self.paste("0003565")
+            if not self.find("aguardPageAdd", matching=0.97, waiting_time=10000):
+                self.not_found("aguardPageAdd")
 
-        self.wait(10000)
-        
-        self.enter()
+            if not self.find("posicioneParaTab", matching=0.97, waiting_time=10000):
+                self.not_found("posicioneParaTab")
+            self.click()
 
-        self.wait(1500)
+            self.tab()
 
-        self.tab()
+            self.paste(ListSc[i]['CodProd'])
 
-        self.paste("1")
+            self.wait(10000)
 
-        self.tab()
+            self.enter()
 
-        self.paste("Descrição texto para incluir")
+            self.wait(1500)
 
-        self.tab()
+            self.tab()
 
-        self.tab()
+            self.paste(ListSc[i]['Quant'])
 
-        self.tab()
+            self.tab()
 
-        self.paste("29/10/2024")
+            self.paste(ListSc[i]['DescObv'])
 
-        self.tab()
+            self.tab()
 
-        self.paste("8104010005")
+            self.tab()
 
-        self.wait(1500)
+            self.tab()
 
-        self.tab()
+            self.paste(ListSc[i]['Dt'])
+            # self.paste("15/01/2024")
 
-        self.paste("2150101001")
+            self.tab()
 
-        self.wait(1500)
+            self.paste(ListSc[i]['Ccontabil'])
 
-        self.tab()
+            self.wait(1500)
 
-        self.paste("Descrição texto para incluir")
+            self.tab()
 
-        self.tab()
-        
-        if not self.find( "addItem", matching=0.97, waiting_time=10000):
-            self.not_found("addItem")
-        self.click()
-        
-        self.wait(10000)
-        
-        if not self.find( "addNovoItem", matching=0.97, waiting_time=10000):
-            self.not_found("addNovoItem")
-        self.click()
-        
-        if not self.find( "aguardPageAdd", matching=0.97, waiting_time=10000):
-            self.not_found("aguardPageAdd")
+            self.paste(ListSc[i]['Ccusto'])
 
-        if not self.find( "posicioneParaTab", matching=0.97, waiting_time=10000):
-            self.not_found("posicioneParaTab")
-        self.click()
-        
-        self.tab()
+            self.wait(1500)
 
-        self.paste("0003565")
+            self.tab()
 
-        self.wait(10000)
+            self.paste(ListSc[i]['DescObvInter'])
 
-        self.enter()
+            self.tab()
 
-        self.wait(1500)
+            if not self.find("addItem", matching=0.97, waiting_time=10000):
+                self.not_found("addItem")
+            self.click()
 
-        self.tab()
+            self.wait(10000)
 
-        self.paste("1")
-
-        self.tab()
-
-        self.paste("Descrição texto para incluir")
-
-        self.tab()
-
-        self.tab()
-
-        self.tab()
-
-        self.paste("29/10/2024")
-
-        self.tab()
-
-        self.paste("8104010005")
-
-        self.wait(1500)
-
-        self.tab()
-
-        self.paste("2150101001")
-
-        self.wait(1500)
-
-        self.tab()
-
-        self.paste("Descrição texto para incluir")
-
-        self.tab()
-
-        if not self.find( "addItem", matching=0.97, waiting_time=10000):
-            self.not_found("addItem")
-        self.click()
-
-        self.wait(10000)
-        
-        if not self.find( "EnvSC", matching=0.97, waiting_time=10000):
+        # Para incluir SC
+        if not self.find("EnvSC", matching=0.97, waiting_time=10000):
             self.not_found("EnvSC")
         self.click()
-        
 
         # BOOT TEAMS
         # self.execute(r"C:\AutoBoot\Atalhos\Microsoft Teams.lnk")
@@ -188,9 +177,6 @@ class Bot(DesktopBot):
         #
         # self.enter()
 
-
-        
-        
         # Uncomment to mark this task as finished on BotMaestro
         # self.maestro.finish_task(
         #     task_id=execution.task_id,
@@ -204,26 +190,3 @@ class Bot(DesktopBot):
 
 if __name__ == '__main__':
     Bot.main()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
