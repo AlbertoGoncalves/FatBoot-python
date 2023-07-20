@@ -1,5 +1,6 @@
-from botcity.base.utils import find_bot_class
-from . import bot
+from ui import win
+print('Vou iniciar programa')
+win()
 
-klass = find_bot_class(bot)[0]
-klass.main()
+# klass = find_bot_class(bot)[0]
+# klass.main()

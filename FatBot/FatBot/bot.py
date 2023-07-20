@@ -1,49 +1,18 @@
-import os
-from pathlib import Path
-import pandas as pd
 from botcity.core import DesktopBot
-
-# abrindo planilha em excel e transformando em Json
-p = Path(os.getcwd())
-raiz = p.parent.parent.parent.parent.parent.parent
-print(raiz)
-caminho = ( str(raiz) + 'AutoBoot\Arquivos\\')
-print(caminho)
-
-# Conteudo opc (1 - Incluir SC) (2 - Teams) (3 - Enviar E-Mails)
-opc = 3
-
-
-VldJson = False
-
-# transformando excel em json com Pandas
-if opc == 1:
-    excel_data_df = pd.read_excel(caminho + 'ListSC.xlsx', sheet_name='Dados_incluir_SC')
-    VldJson = True
-elif opc == 2:
-    excel_data_df = pd.read_excel(caminho + 'ListSC.xlsx', sheet_name='Dados_Msg_Teams')
-    VldJson = True
-elif opc == 3:
-    excel_data_df = pd.read_excel(caminho + 'ListSC.xlsx', sheet_name='Dados_Enviar_Email')
-    VldJson = True
-else:
-    print('Opção não disponivel')
-
-if VldJson:
-    dadosJson = excel_data_df.to_json()
-    print('Excel Sheet to JSON:\n', dadosJson)
-
-
-
+from selenium.webdriver.common.keys import Keys
 
 # Uncomment the line below for integrations with BotMaestro
 # Using the Maestro SDK
 # from botcity.maestro import *
 
-
-
 class Bot(DesktopBot):
-    def action(self, execution=None):
+
+    def __int__(self, opc_ext=int, dados_json_ext=map):
+        super().__init__()
+        self.opc = opc_ext
+        self.dados_json = dados_json_ext
+
+    def action(self, execution=None, opc=int, dados_json=map):
         # Uncomment to silence Maestro errors when disconnected
         # if self.maestro:
         #     self.maestro.RAISE_NOT_CONNECTED = False
@@ -53,8 +22,10 @@ class Bot(DesktopBot):
         # activity_id = task.activity_id
 
         # Opens the BotCity website.
+        self.opc = opc
+        self.dados_json = dados_json
 
-        if opc == 1:
+        if self.opc == 0:
 
             self.browse("https://sweetfruits.e-tetris.com/")
 
@@ -89,7 +60,7 @@ class Bot(DesktopBot):
                 self.not_found("btIncluir")
             self.click()
 
-            for i in range(0, len(dadosJson)):
+            for i in range(0, len(self.dados_json)):
 
                 print(i)
 
@@ -107,7 +78,7 @@ class Bot(DesktopBot):
 
                 self.tab()
 
-                self.paste(dadosJson[i]['CodProd'])
+                self.paste(self.dados_json[i]['CodProd'])
 
                 self.wait(10000)
 
@@ -117,11 +88,11 @@ class Bot(DesktopBot):
 
                 self.tab()
 
-                self.paste(dadosJson[i]['Quant'])
+                self.paste(self.dados_json[i]['Quant'])
 
                 self.tab()
 
-                self.paste(dadosJson[i]['DescObv'])
+                self.paste(self.dados_json[i]['DescObv'])
 
                 self.tab()
 
@@ -129,24 +100,24 @@ class Bot(DesktopBot):
 
                 self.tab()
 
-                self.paste(dadosJson[i]['Dt'])
+                self.paste(self.dados_json[i]['Dt'])
                 # self.paste("15/01/2024")
 
                 self.tab()
 
-                self.paste(dadosJson[i]['Ccontabil'])
+                self.paste(self.dados_json[i]['Ccontabil'])
 
                 self.wait(1500)
 
                 self.tab()
 
-                self.paste(dadosJson[i]['Ccusto'])
+                self.paste(self.dados_json[i]['Ccusto'])
 
                 self.wait(1500)
 
                 self.tab()
 
-                self.paste(dadosJson[i]['DescObvInter'])
+                self.paste(self.dados_json[i]['DescObvInter'])
 
                 self.tab()
 
@@ -162,11 +133,11 @@ class Bot(DesktopBot):
             if not self.find( "EnvSC", matching=0.97, waiting_time=10000):
                 self.not_found("EnvSC")
             self.click()
-            
+
             if not self.find( "bntUser", matching=0.97, waiting_time=10000):
                 self.not_found("bntUser")
             self.click()
-            
+
             if not self.find( "bntSair", matching=0.97, waiting_time=10000):
                 self.not_found("bntSair")
             self.click()
@@ -175,52 +146,113 @@ class Bot(DesktopBot):
                 self.not_found("bntSimSair")
             self.click()
 
-        elif opc == 2:
+        elif self.opc == 1:
 
             # BOOT TEAMS
             self.execute(r"C:\AutoBoot\Atalhos\Microsoft Teams.lnk")
 
-            if not self.find("Pesquisar", matching=0.97, waiting_time=10000):
-                self.not_found("Pesquisar")
+            self.wait(2000)
+
+            for i in range(0, len(self.dados_json)):
+
+                print(i)
+
+
+                if not self.find( "novaConversa", matching=0.97, waiting_time=10000):
+                    self.not_found("novaConversa")
+                self.click()
+
+                self.move_random(range_x=100, range_y=200)
+
+                self.wait(500)
+
+                self.paste(self.dados_json[i]['Destinatario'])
+
+                self.wait(2000)
+
+                self.tab()
+
+                self.wait(500)
+
+                if self.dados_json[i]['Tipo'] == "User":
+                    self.tab()
+
+                self.wait(500)
+
+                self.paste(self.dados_json[i]['Msg'])
+
+                self.enter()
+                
+            if not self.find( "fecharTeams", matching=0.97, waiting_time=10000):
+                self.not_found("fecharTeams")
             self.click()
+             
 
-            self.paste("Setor TI")
+        elif self.opc == 2:
 
-            if not self.find("GrupoTI", matching=0.97, waiting_time=10000):
-                self.not_found("GrupoTI")
-            self.click()
-
-            if not self.find("caixa digit", matching=0.97, waiting_time=10000):
-                self.not_found("caixa digit")
-            self.click()
-
-            self.paste(
-                "Bom dia, Reunião diária hoje as 08:30, favor não ausentar-se da estão de trabalho entre 08:15 a 08:30.")
-
-            # self.paste("Teste autoBoot")
-
-            self.enter()
-
-        elif opc == 3:
             self.execute(r"C:\AutoBoot\Atalhos\OUTLOOK.lnk")
 
-            if not self.find( "pagInicial", matching=0.97, waiting_time=10000):
+            if not self.find( "pagInicial", matching=0.97, waiting_time=20000):
                 self.not_found("pagInicial")
             self.click()
 
-            for i in range(0, len(dadosJson)):
-            
-                if not self.find( "novoEmail", matching=0.97, waiting_time=10000):
+            for i in range(0, len(self.dados_json)):
+
+                if not self.find( "novoEmail", matching=0.97, waiting_time=20000):
                     self.not_found("novoEmail")
                 self.click()
 
-                self.paste(dadosJson[i]['Emails'])
+                self.paste(self.dados_json[i]['Emails'])
 
                 self.tab()
                 self.tab()
                 self.tab()
 
-                self.paste(dadosJson[i]['Emails'])
+                # if CCO == True:
+                #     self.tab()
+
+                self.tab()
+
+                self.paste(self.dados_json[i]['Assunto'])
+
+                self.tab()
+
+                self.paste(self.dados_json[i]['MSG1'])
+
+                self.enter()
+                self.enter()
+
+                self.paste(self.dados_json[i]['MSG2'])
+
+                self.enter()
+
+                self.tab()
+
+                self.paste(self.dados_json[i]['MSG3'])
+
+                self.enter()
+
+                self.tab()
+
+                self.paste(self.dados_json[i]['MSG4'])
+
+                self.enter()
+
+                self.tab()
+
+                self.paste(self.dados_json[i]['MSG5'])
+
+                self.enter()
+                
+                if not self.find( "enviarEmail", matching=0.97, waiting_time=10000):
+                     self.not_found("enviarEmail")
+                self.click()
+             
+
+                
+
+
+
 
         # Uncomment to mark this task as finished on BotMaestro
         # self.maestro.finish_task(
@@ -233,14 +265,8 @@ class Bot(DesktopBot):
         print(f"Element not found: {label}")
 
 
-if __name__ == '__main__':
-    Bot.main()
-
-
-
-
-
-
+# if __name__ == '__main__':
+#     Bot.main()
 
 
 
