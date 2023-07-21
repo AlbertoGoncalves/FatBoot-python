@@ -129,7 +129,7 @@ class Bot(DesktopBot):
                 self.not_found("EnvSC")
             self.click()
 
-            self.wait(15000)
+            self.wait(70000)
 
             if not self.find( "bntUser", matching=0.97, waiting_time=10000):
                 self.not_found("bntUser")
