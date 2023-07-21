@@ -62,8 +62,6 @@ class Bot(DesktopBot):
 
             for i in range(0, len(self.dados_json)):
 
-                print(i)
-
                 if i != 0:
                     if not self.find( "addNovoItem", matching=0.97, waiting_time=10000):
                         self.not_found("addNovoItem")
@@ -101,7 +99,6 @@ class Bot(DesktopBot):
                 self.tab()
 
                 self.paste(self.dados_json[i]['Dt'])
-                # self.paste("15/01/2024")
 
                 self.tab()
 
@@ -127,12 +124,12 @@ class Bot(DesktopBot):
 
                 self.wait(15000)
 
-                print("Vou Add novo item")
-
             # Para incluir SC
             if not self.find( "EnvSC", matching=0.97, waiting_time=10000):
                 self.not_found("EnvSC")
             self.click()
+
+            self.wait(15000)
 
             if not self.find( "bntUser", matching=0.97, waiting_time=10000):
                 self.not_found("bntUser")
@@ -148,15 +145,11 @@ class Bot(DesktopBot):
 
         elif self.opc == 1:
 
-            # BOOT TEAMS
             self.execute(r"C:\AutoBoot\Atalhos\Microsoft Teams.lnk")
 
             self.wait(2000)
 
             for i in range(0, len(self.dados_json)):
-
-                print(i)
-
 
                 if not self.find( "novaConversa", matching=0.97, waiting_time=10000):
                     self.not_found("novaConversa")
@@ -247,12 +240,6 @@ class Bot(DesktopBot):
                 if not self.find( "enviarEmail", matching=0.97, waiting_time=10000):
                      self.not_found("enviarEmail")
                 self.click()
-             
-
-                
-
-
-
 
         # Uncomment to mark this task as finished on BotMaestro
         # self.maestro.finish_task(

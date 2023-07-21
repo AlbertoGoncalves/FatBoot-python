@@ -9,17 +9,15 @@ from bot import Bot
 
 def automacao(opc):
 
-
-
     # Conteudo opc (0 - Incluir SC) (1 - Teams) (2 - Enviar E-Mails)
-    print(opc)
+    # print(opc)
 
     # abrindo planilha em excel e transformando em Json
     p = Path(os.getcwd())
     raiz = p.parent.parent.parent.parent.parent.parent
-    print(raiz)
+    # print(raiz)
     caminho = (str(raiz) + 'AutoBoot\Arquivos\\')
-    print(caminho)
+    # print(caminho)
 
     vld_json = False
 
@@ -33,13 +31,13 @@ def automacao(opc):
     elif opc == 2:
         excel_data_df = pd.read_excel(caminho + 'ListSC.xlsx', sheet_name='Dados_Enviar_Email')
         vld_json = True
-    else:
-        print('Opção não disponivel')
+    # else:
+        # print('Opção não disponivel')
 
     if vld_json:
         # dados_json = excel_data_df.to_json(orient="records")
         dados_json = excel_data_df.to_dict(orient="records")
-        print('Excel Sheet to JSON:\n', dados_json)
+        # print('Excel Sheet to JSON:\n', dados_json)
 
         klass = find_bot_class(bot)[0]
         klass.main(opc, dados_json)
