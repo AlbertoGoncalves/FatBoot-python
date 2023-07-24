@@ -23,12 +23,15 @@ def automacao(opc):
 
     # transformando excel em json com Pandas
     if opc == 0:
-        excel_data_df = pd.read_excel(caminho + 'ListSC.xlsx', sheet_name='Dados_incluir_SC')
+        excel_data_df = pd.read_excel(caminho + 'ListSC.xlsx', sheet_name='Dados_incluir_SC', dtype=str)
         vld_json = True
     elif opc == 1:
         excel_data_df = pd.read_excel(caminho + 'ListSC.xlsx', sheet_name='Dados_Msg_Teams')
         vld_json = True
     elif opc == 2:
+        excel_data_df = pd.read_excel(caminho + 'ListSC.xlsx', sheet_name='Dados_Enviar_Email')
+        vld_json = True
+    elif opc == 3:
         excel_data_df = pd.read_excel(caminho + 'ListSC.xlsx', sheet_name='Dados_Enviar_Email')
         vld_json = True
     # else:
@@ -37,7 +40,7 @@ def automacao(opc):
     if vld_json:
         # dados_json = excel_data_df.to_json(orient="records")
         dados_json = excel_data_df.to_dict(orient="records")
-        # print('Excel Sheet to JSON:\n', dados_json)
+        print('Excel Sheet to JSON:\n', dados_json)
 
         klass = find_bot_class(bot)[0]
         klass.main(opc, dados_json)

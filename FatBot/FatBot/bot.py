@@ -78,7 +78,7 @@ class Bot(DesktopBot):
 
                 self.paste(self.dados_json[i]['CodProd'])
 
-                self.wait(10000)
+                self.wait(15000)
 
                 self.enter()
 
@@ -94,6 +94,15 @@ class Bot(DesktopBot):
 
                 self.tab()
 
+                self.type_up()
+                self.type_up()
+                self.type_up()
+
+                if self.dados_json[i]['Tipo'] == 'Emergencial':
+                    self.type_down()
+                elif self.dados_json[i]['Tipo'] == 'Regularização':
+                    self.type_down()
+                    self.type_down()
                 self.tab()
 
                 self.tab()
@@ -129,7 +138,7 @@ class Bot(DesktopBot):
                 self.not_found("EnvSC")
             self.click()
 
-            self.wait(70000)
+            self.wait(90000)
 
             if not self.find( "bntUser", matching=0.97, waiting_time=10000):
                 self.not_found("bntUser")

@@ -21,7 +21,8 @@ def win():
     monthchoosen = ttk.Combobox(window, width=27, textvariable=n)
     monthchoosen['values'] = ('Incluir SC',
                               'Msg Teams',
-                              'Enviar E-Mail')
+                              'Enviar E-Mail'
+                              ,'Bloco de Notas')
     monthchoosen.grid(column=0, row=7)
 
     botao = ttk.Button(window, text="Iniciar automação", command=lambda: automacao(monthchoosen.current()))
