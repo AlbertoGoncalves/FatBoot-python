@@ -6,9 +6,42 @@ setup.py
 FatBot/__init__.py
 FatBot/__main__.py
 FatBot/bot.py
+FatBot/excelPandasJson.py
+FatBot/uiwin.py
 FatBot.egg-info/PKG-INFO
 FatBot.egg-info/SOURCES.txt
 FatBot.egg-info/dependency_links.txt
 FatBot.egg-info/requires.txt
 FatBot.egg-info/top_level.txt
+FatBot/resources/Abrir page SC.png
+FatBot/resources/Caixa de MSG.png
+FatBot/resources/CodProd.png
+FatBot/resources/EnvSC.png
+FatBot/resources/Grupo Setor TI.png
+FatBot/resources/GrupoTI.png
+FatBot/resources/Pesquisar.png
+FatBot/resources/acessarSite.png
+FatBot/resources/addItem.png
+FatBot/resources/addNovoItem.png
+FatBot/resources/aguardPageAdd.png
+FatBot/resources/bntAcessar.png
+FatBot/resources/bntSair.png
+FatBot/resources/bntSimSair.png
+FatBot/resources/bntUser.png
+FatBot/resources/btIncluir.png
+FatBot/resources/caixa digit.png
+FatBot/resources/caixa msg1.png
+FatBot/resources/click.png
+FatBot/resources/click1.png
+FatBot/resources/clickCompras.png
+FatBot/resources/digitTexto.png
+FatBot/resources/enviarEmail.png
+FatBot/resources/fecharTeams.png
+FatBot/resources/logAcessar.png
+FatBot/resources/novaConversa.png
+FatBot/resources/novaMsg.png
+FatBot/resources/novoEmail.png
+FatBot/resources/pagInicial.png
+FatBot/resources/pagInicial2.png
+FatBot/resources/posicioneParaTab.png
 FatBot/resources/start.png

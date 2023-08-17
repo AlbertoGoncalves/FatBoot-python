@@ -1,6 +1,6 @@
 import tkinter as tk
 from tkinter import ttk
-from excelPandasJson import automacao
+from FatBot.excelPandasJson import automacao
 
 
 def win():
@@ -22,7 +22,7 @@ def win():
     monthchoosen['values'] = ('Incluir SC',
                               'Msg Teams',
                               'Enviar E-Mail'
-                              ,'Bloco de Notas')
+                              ,'E-mail Protocolo Compras')
     monthchoosen.grid(column=0, row=7)
 
     botao = ttk.Button(window, text="Iniciar automação", command=lambda: automacao(monthchoosen.current()))

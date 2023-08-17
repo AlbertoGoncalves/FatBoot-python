@@ -4,8 +4,9 @@ from pathlib import Path
 import pandas as pd
 
 from botcity.base.utils import find_bot_class
-import bot
-from bot import Bot
+import FatBot.bot
+
+klass = find_bot_class(FatBot.bot)[0]
 
 def automacao(opc):
 
@@ -32,7 +33,7 @@ def automacao(opc):
         excel_data_df = pd.read_excel(caminho + 'ListSC.xlsx', sheet_name='Dados_Enviar_Email')
         vld_json = True
     elif opc == 3:
-        excel_data_df = pd.read_excel(caminho + 'ListSC.xlsx', sheet_name='Dados_Enviar_Email')
+        excel_data_df = pd.read_excel(caminho + 'ListSC.xlsx', sheet_name='Email_Protocolo_Compras', dtype=str)
         vld_json = True
     # else:
         # print('Opção não disponivel')
@@ -42,5 +43,5 @@ def automacao(opc):
         dados_json = excel_data_df.to_dict(orient="records")
         print('Excel Sheet to JSON:\n', dados_json)
 
-        klass = find_bot_class(bot)[0]
+
         klass.main(opc, dados_json)

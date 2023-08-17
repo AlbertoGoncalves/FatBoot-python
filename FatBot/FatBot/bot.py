@@ -1,9 +1,9 @@
 from botcity.core import DesktopBot
-from selenium.webdriver.common.keys import Keys
 
 # Uncomment the line below for integrations with BotMaestro
 # Using the Maestro SDK
 # from botcity.maestro import *
+
 
 class Bot(DesktopBot):
 
@@ -53,8 +53,46 @@ class Bot(DesktopBot):
                 self.not_found("bntAcessar")
             self.click()
 
-            if not self.find( "Abrir page SC", matching=0.97, waiting_time=70000):
+            if not self.find("Abrir page SC", matching=0.97, waiting_time=70000):
                 self.not_found("Abrir page SC")
+
+            flial = self.dados_json[0]['Filial']
+
+            if flial != "0101":
+                self.tab()
+                self.tab()
+                self.enter()
+
+                if flial == "0104":
+                    for i in range(0, 3):
+                        self.tab()
+                elif flial == "0109":
+                    for i in range(0, 5):
+                        self.tab()
+                elif flial == "0111":
+                    for i in range(0, 6):
+                        self.tab()
+                elif flial == "0113":
+                    for i in range(0, 7):
+                        self.tab()
+                elif flial == "1201":
+                    for i in range(0, 13):
+                        self.tab()
+                elif flial == "2001":
+                    for i in range(0, 14):
+                        self.tab()
+                elif flial == "2101":
+                    for i in range(0, 15):
+                        self.tab()
+                elif flial == "2201":
+                    for i in range(0, 16):
+                        self.tab()
+
+                self.enter()
+                self.wait(10000)
+
+                if not self.find( "Abrir page SC", matching=0.97, waiting_time=70000):
+                    self.not_found("Abrir page SC")
 
             if not self.find( "btIncluir", matching=0.97, waiting_time=10000):
                 self.not_found("btIncluir")
@@ -138,7 +176,10 @@ class Bot(DesktopBot):
                 self.not_found("EnvSC")
             self.click()
 
-            self.wait(90000)
+            # self.wait(70000)
+
+            if not self.find("Abrir page SC", matching=0.97, waiting_time=70000):
+                self.not_found("Abrir page SC")
 
             if not self.find( "bntUser", matching=0.97, waiting_time=10000):
                 self.not_found("bntUser")
@@ -249,6 +290,125 @@ class Bot(DesktopBot):
                 if not self.find( "enviarEmail", matching=0.97, waiting_time=10000):
                      self.not_found("enviarEmail")
                 self.click()
+
+        elif self.opc == 3:
+
+            self.execute(r"C:\AutoBoot\Atalhos\OUTLOOK.lnk")
+            
+            if not self.find( "pesquisaEmail", matching=0.97, waiting_time=10000):
+                self.not_found("pesquisaEmail")
+            self.click()
+            
+            self.paste("MODELO_PROTOCOLO_COMPRAS")
+            
+            self.tab()
+            self.tab()
+            self.tab()
+            self.tab()
+            self.tab()
+
+            self.enter()
+
+            self.control_t()
+
+            self.control_c()
+
+            self.alt_f4()
+
+            if not self.find( "PageIni", matching=0.97, waiting_time=10000):
+                self.not_found("PageIni")
+            self.click()
+            
+
+            if not self.find( "novoEmail", matching=0.97, waiting_time=20000):
+                self.not_found("novoEmail")
+            self.click()
+
+            # self.paste(self.dados_json[0]['Emails'])
+
+            self.tab()
+            self.tab()
+            self.tab()
+            # if CCO == True:
+            #     self.tab()
+
+            # self.paste(self.dados_json[0]['Assunto'])
+
+            self.tab()
+
+            self.control_v()
+
+            self.scroll_up(clicks=10)
+
+            if not self.find( "AquiTabela", matching=0.97, waiting_time=10000):
+                self.not_found("AquiTabela")
+            self.click()
+
+            self.click()
+            self.click()
+            self.click()
+
+            for i in range(0, len(self.dados_json)):
+
+                self.paste(self.dados_json[i]['Sc'])
+
+                self.tab()
+
+                self.paste(self.dados_json[i]['NF'])
+
+                self.tab()
+
+                self.paste(self.dados_json[i]['Filial'])
+
+                self.tab()
+
+                self.paste(self.dados_json[i]['DtEmissao'])
+
+                self.tab()
+
+                self.paste(self.dados_json[i]['Fornecedor'])
+
+                self.tab()
+
+                self.paste(self.dados_json[i]['Valor'])
+
+                self.tab()
+
+                self.paste(self.dados_json[i]['Vencimento'])
+
+                self.tab()
+                self.tab()
+
+            if not self.find( "clicPara", matching=0.97, waiting_time=10000):
+                self.not_found("clicPara")
+            self.click()
+
+            self.key_esc()
+
+            self.tab()
+            self.tab()
+            self.tab()
+
+            self.paste(self.dados_json[0]['Emails'])
+
+            self.tab()
+            self.tab()
+            self.tab()
+            # if CCO == True:
+            #     self.tab()
+
+            self.paste(self.dados_json[0]['Assunto'])
+
+            if not self.find( "enviarEmail", matching=0.97, waiting_time=10000):
+                self.not_found("enviarEmail")
+            self.click()
+
+            self.key_esc()
+
+            self.wait(10000)
+
+            self.alt_f4()
+
 
         # Uncomment to mark this task as finished on BotMaestro
         # self.maestro.finish_task(
