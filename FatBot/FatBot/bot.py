@@ -27,33 +27,33 @@ class Bot(DesktopBot):
 
         if self.opc == 0:
 
-            self.browse("https://sweetfruits.e-tetris.com/")
+            # self.browse("https://sweetfruits.e-tetris.com/")
+            #
+            # self.wait(5000)
+            #
+            # if not self.find( "logAcessar", matching=0.97, waiting_time=10000):
+            #     self.not_found("logAcessar")
+            # self.click()
+            #
+            # self.wait(2000)
+            #
+            # if not self.find( "click1", matching=0.97, waiting_time=10000):
+            #     self.not_found("click1")
+            # self.click()
+            #
+            # self.wait(1000)
+            #
+            # if not self.find( "clickCompras", matching=0.97, waiting_time=10000):
+            #     self.not_found("clickCompras")
+            # self.click()
+            #
+            # self.wait(1000)
+            #
+            # if not self.find( "bntAcessar", matching=0.97, waiting_time=10000):
+            #     self.not_found("bntAcessar")
+            # self.click()
 
-            self.wait(2000)
-
-            if not self.find( "logAcessar", matching=0.97, waiting_time=10000):
-                self.not_found("logAcessar")
-            self.click()
-
-            self.wait(2000)
-
-            if not self.find( "click1", matching=0.97, waiting_time=10000):
-                self.not_found("click1")
-            self.click()
-
-            self.wait(1000)
-
-            if not self.find( "clickCompras", matching=0.97, waiting_time=10000):
-                self.not_found("clickCompras")
-            self.click()
-
-            self.wait(1000)
-
-            if not self.find( "bntAcessar", matching=0.97, waiting_time=10000):
-                self.not_found("bntAcessar")
-            self.click()
-
-            if not self.find("Abrir page SC", matching=0.97, waiting_time=70000):
+            if not self.find( "Abrir page SC", matching=0.97, waiting_time=200000):
                 self.not_found("Abrir page SC")
 
             flial = self.dados_json[0]['Filial']
@@ -91,7 +91,7 @@ class Bot(DesktopBot):
                 self.enter()
                 self.wait(10000)
 
-                if not self.find( "Abrir page SC", matching=0.97, waiting_time=70000):
+                if not self.find( "Abrir page SC", matching=0.97, waiting_time=200000):
                     self.not_found("Abrir page SC")
 
             if not self.find( "btIncluir", matching=0.97, waiting_time=10000):
@@ -147,17 +147,19 @@ class Bot(DesktopBot):
 
                 self.paste(self.dados_json[i]['Dt'])
 
+                self.wait(3000)
+
                 self.tab()
 
                 self.paste(self.dados_json[i]['Ccontabil'])
 
-                self.wait(1500)
+                self.wait(3000)
 
                 self.tab()
 
                 self.paste(self.dados_json[i]['Ccusto'])
 
-                self.wait(1500)
+                self.wait(3000)
 
                 self.tab()
 
@@ -165,31 +167,31 @@ class Bot(DesktopBot):
 
                 self.tab()
 
-                if not self.find( "addItem", matching=0.97, waiting_time=10000):
+                if not self.find( "addItem", matching=0.97, waiting_time=80000):
                     self.not_found("addItem")
                 self.click()
 
                 self.wait(15000)
 
             # Para incluir SC
-            if not self.find( "EnvSC", matching=0.97, waiting_time=10000):
+            if not self.find( "EnvSC", matching=0.97, waiting_time=80000):
                 self.not_found("EnvSC")
             self.click()
 
             # self.wait(70000)
 
-            if not self.find("Abrir page SC", matching=0.97, waiting_time=70000):
+            if not self.find( "Abrir page SC", matching=0.97, waiting_time=200000):
                 self.not_found("Abrir page SC")
 
-            if not self.find( "bntUser", matching=0.97, waiting_time=10000):
+            if not self.find( "bntUser", matching=0.97, waiting_time=80000):
                 self.not_found("bntUser")
             self.click()
 
-            if not self.find( "bntSair", matching=0.97, waiting_time=10000):
+            if not self.find( "bntSair", matching=0.97, waiting_time=80000):
                 self.not_found("bntSair")
             self.click()
 
-            if not self.find( "bntSimSair", matching=0.97, waiting_time=10000):
+            if not self.find( "bntSimSair", matching=0.97, waiting_time=80000):
                 self.not_found("bntSimSair")
             self.click()
 
@@ -222,7 +224,16 @@ class Bot(DesktopBot):
 
                 self.wait(500)
 
-                self.paste(self.dados_json[i]['Msg'])
+                if self.dados_json[i]['Msg'] == "":
+                    self.paste(self.dados_json[i]['Msg'])
+
+                self.type_keys(["shift", "enter"])
+
+                self.paste(self.dados_json[i]['Msg1'])
+
+                self.type_keys(["shift", "enter"])
+
+                self.paste(self.dados_json[i]['Msg2'])
 
                 self.enter()
                 
@@ -247,6 +258,7 @@ class Bot(DesktopBot):
 
                 self.paste(self.dados_json[i]['Emails'])
 
+                self.enter()
                 self.tab()
                 self.tab()
                 self.tab()
@@ -254,36 +266,40 @@ class Bot(DesktopBot):
                 # if CCO == True:
                 #     self.tab()
 
+                if self.dados_json[i]['Assunto'] != "txt":
+                    self.paste(self.dados_json[i]['Assunto'])
+
                 self.tab()
 
-                self.paste(self.dados_json[i]['Assunto'])
-
-                self.tab()
-
-                self.paste(self.dados_json[i]['MSG1'])
+                if self.dados_json[i]['MSG1'] != "txt":
+                    self.paste(self.dados_json[i]['MSG1'])
 
                 self.enter()
                 self.enter()
 
-                self.paste(self.dados_json[i]['MSG2'])
-
-                self.enter()
-
-                self.tab()
-
-                self.paste(self.dados_json[i]['MSG3'])
+                if self.dados_json[i]['MSG2'] != "txt":
+                    self.paste(self.dados_json[i]['MSG2'])
 
                 self.enter()
 
                 self.tab()
 
-                self.paste(self.dados_json[i]['MSG4'])
+                if self.dados_json[i]['MSG3'] != "txt":
+                    self.paste(self.dados_json[i]['MSG3'])
 
                 self.enter()
 
                 self.tab()
 
-                self.paste(self.dados_json[i]['MSG5'])
+                if self.dados_json[i]['MSG4'] != "txt":
+                    self.paste(self.dados_json[i]['MSG4'])
+
+                self.enter()
+
+                self.tab()
+
+                if self.dados_json[i]['MSG5'] != "txt":
+                    self.paste(self.dados_json[i]['MSG5'])
 
                 self.enter()
                 
@@ -295,12 +311,14 @@ class Bot(DesktopBot):
 
             self.execute(r"C:\AutoBoot\Atalhos\OUTLOOK.lnk")
             
-            if not self.find( "pesquisaEmail", matching=0.97, waiting_time=10000):
+            if not self.find( "pesquisaEmail", matching=0.97, waiting_time=100000):
                 self.not_found("pesquisaEmail")
             self.click()
             
             self.paste("MODELO_PROTOCOLO_COMPRAS")
-            
+
+            self.wait(1000)
+
             self.tab()
             self.tab()
             self.tab()
@@ -339,10 +357,12 @@ class Bot(DesktopBot):
             self.control_v()
 
             self.scroll_up(clicks=10)
-
-            if not self.find( "AquiTabela", matching=0.97, waiting_time=10000):
-                self.not_found("AquiTabela")
+            
+            if not self.find( "A", matching=0.97, waiting_time=30000):
+                self.not_found("A")
             self.click()
+            
+            
 
             self.click()
             self.click()
@@ -409,6 +429,32 @@ class Bot(DesktopBot):
 
             self.alt_f4()
 
+        elif self.opc == 4:
+            timeWait = 1500
+            timePressed = 5
+            numScrollDown = 50
+            autoPages = True
+
+            self.execute(r"C:\AutoBoot\Atalhos\Google Chrome.lnk")
+            self.wait(2000)
+
+            while autoPages:
+                self.type_keys(["home"])
+                self.wait(1000)
+
+
+                for i in range(0, numScrollDown):
+                    self.type_down(timePressed)
+                    self.wait(timeWait)
+
+
+                self.type_keys(["Ctrl", "tab"])
+                self.type_keys(["home"])
+                self.wait(1500)
+
+                for i in range(0, numScrollDown):
+                    self.type_down(timePressed)
+                    self.wait(timeWait)
 
         # Uncomment to mark this task as finished on BotMaestro
         # self.maestro.finish_task(
@@ -423,6 +469,9 @@ class Bot(DesktopBot):
 
 # if __name__ == '__main__':
 #     Bot.main()
+
+
+
 
 
 

@@ -35,6 +35,8 @@ def automacao(opc):
     elif opc == 3:
         excel_data_df = pd.read_excel(caminho + 'ListSC.xlsx', sheet_name='Email_Protocolo_Compras', dtype=str)
         vld_json = True
+    elif opc == 4:
+        vld_json = False
     # else:
         # print('Opção não disponivel')
 
@@ -42,6 +44,6 @@ def automacao(opc):
         # dados_json = excel_data_df.to_json(orient="records")
         dados_json = excel_data_df.to_dict(orient="records")
         print('Excel Sheet to JSON:\n', dados_json)
-
-
         klass.main(opc, dados_json)
+    else:
+        klass.main(opc, [])
